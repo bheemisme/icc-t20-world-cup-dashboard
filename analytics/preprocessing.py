@@ -1,10 +1,10 @@
 import pandas as pd
 
 
-batting = pd.read_csv('./data/batting.csv')
-bowling = pd.read_csv('./data/bowling.csv')
-match = pd.read_csv('./data/match.csv')
-player = pd.read_csv('./data/player.csv')
+batting = pd.read_csv('./data/Batting summaries for every match.csv')
+bowling = pd.read_csv('./data/Bowling summaries for every match.csv')
+match = pd.read_csv('./data/Match Summary.csv')
+player = pd.read_csv('./data/Player_Info T20 WC 2024.csv')
 
 match.dropna(inplace=True)
 player = player[~player['batting_style'].isna()]
