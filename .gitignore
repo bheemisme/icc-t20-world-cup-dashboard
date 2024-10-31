@@ -1,0 +1,4 @@
+*/__pycache__/*.pyc
+
+data/*.csv
+analytics/__pycache__/__init__.cpython-312.pyc
