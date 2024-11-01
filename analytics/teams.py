@@ -51,3 +51,22 @@ def get_toss_won():
     sns.countplot(data=match, y='Winners', hue='SameWins')
     plt.title("Number of tosses where team won both match and toss and opposite")
     return fig
+
+def get_team_trend(team: str):
+    team_matches = match[(match['1st Team'] == team) | (match['2nd Team'] == team)]
+    first_inings = team_matches[(((team_matches['Toss Winning'] == team) & (team_matches['Toss Decision'] == 'Batting'))) | (((team_matches['Toss Winning'] != team) & (team_matches['Toss Decision'] == 'Fielding')))]
+    second_inings = team_matches[(((team_matches['Toss Winning'] == team) & (team_matches['Toss Decision'] == 'Fielding'))) | (((team_matches['Toss Winning'] != team) & (team_matches['Toss Decision'] == 'Batting')))]
+
+    dates =  first_inings['Match Date'].to_list()
+    dates.extend(second_inings['Match Date'].to_list())
+    scores = first_inings['First Innings Score'].to_list()
+    scores.extend(second_inings['Second Innings Score'].to_list())
+
+    fig = plt.figure()
+    sns.lineplot(x=dates,y=scores)
+    plt.xticks(rotation=90)
+    plt.title(team)
+    plt.xlabel('Scores')
+
+    return fig
+

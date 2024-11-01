@@ -4,9 +4,9 @@ import analytics.preprocessing as preprocess
 st.title("Teams")
 
 
-with st.container():
-    st.pyplot(teams.get_win_percentage())
-    st.pyplot(teams.get_toss_won())
+
+st.pyplot(teams.get_win_percentage())
+st.pyplot(teams.get_toss_won())
 
 col1, col2 = st.columns(2)
 
@@ -18,4 +18,5 @@ with col2:
 
 
 
-st.selectbox("Choose a team: ", list(preprocess.teams))
+team = st.selectbox("Choose a team: ", list(preprocess.teams))
+st.pyplot(teams.get_team_trend(team))
