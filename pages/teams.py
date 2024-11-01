@@ -1,7 +1,21 @@
 import streamlit as st
-from analytics.win_percentage import fig as win_percentage
-from analytics.win_method import fig as win_method
+import analytics.teams as teams
+import analytics.preprocessing as preprocess
 st.title("Teams")
 
-st.pyplot(win_percentage)
-st.pyplot(win_method)
+
+with st.container():
+    st.pyplot(teams.get_win_percentage())
+    st.pyplot(teams.get_toss_won())
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.pyplot(teams.get_tos_decision())
+
+with col2:
+    st.pyplot(teams.get_win_method())
+
+
+
+st.selectbox("Choose a team: ", list(preprocess.teams))

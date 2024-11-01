@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 batting = pd.read_csv('./data/Batting summaries for every match.csv')
 bowling = pd.read_csv('./data/Bowling summaries for every match.csv')
@@ -13,6 +13,7 @@ players = set(player['name'].unique())
 teams = set(match['1st Team']).union(set(match['2nd Team']))
 match['Match Date'] = pd.to_datetime(match['Match Date'])
 
+
 def preprocess_age(age):
     a = age.split(' ')
 
@@ -24,4 +25,8 @@ def preprocess_age(age):
 
     return years+round(days, 2)
 
+batting['SR'] =batting['SR'].replace('-', np.nan)
+batting['SR']=  pd.to_numeric(batting['SR'])
+
 player['age'] = player['age'].apply(preprocess_age)
+match['SameWins'] = match.apply(lambda x: 1 if x['Winners'] == x['Toss Winning'] else 0, axis=1)
